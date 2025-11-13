@@ -1,576 +1,883 @@
-// DOM加载完成后执行
-document.addEventListener('DOMContentLoaded', function() {
-    // 导航条滚动效果
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            navbar.style.background = 'var(--primary-color)';
-            navbar.style.backdropFilter = 'blur(10px)';
-            navbar.style.padding = '0.7rem 0';
-        } else {
-            navbar.style.background = 'var(--primary-color)';
-            navbar.style.backdropFilter = 'none';
-            navbar.style.padding = '1rem 0';
-        }
-    });
+/* 基础样式与变量定义 */
+:root {
+    --primary-color: #2c5aa0;
+    --secondary-color: #4a90e2;
+    --accent-color: #e74c3c;
+    --light-color: #f0f7ff;
+    --dark-color: #1a3c6e;
+    --text-color: #333;
+    --bg-color: #ffffff;
+    --card-bg: #f8fafc;
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
 
-    // 移动端菜单切换
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navLinks = document.getElementById('navLinks');
-    
-    mobileMenuBtn.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
-        mobileMenuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
-    });
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Microsoft YaHei', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    // 深色模式切换
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = themeToggle.querySelector('i');
-    
-    themeToggle.addEventListener('click', function() {
-        document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains('dark-mode')) {
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
-            localStorage.setItem('theme', 'light');
-        }
-    });
+html {
+    scroll-behavior: smooth;
+}
 
-    // 检查本地存储的主题设置
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
+body {
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 导航条样式 */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: var(--primary-color);
+    padding: 1.2rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    margin-right: 10px;
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 2rem;
+    position: relative;
+}
+
+.nav-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+    font-weight: 500;
+    padding: 5px 0;
+    font-size: 1rem;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* 主要内容区域 */
+.main-content {
+    margin-top: 80px;
+}
+
+section {
+    padding: 5rem 0;
+}
+
+/* 首页样式 */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    text-align: center;
+    padding: 8rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><path d="M0,50 Q250,30 500,50 T1000,50 L1000,100 L0,100 Z" fill="rgba(255,255,255,0.1)"></path></svg>');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid white;
+    margin: 0 auto 2rem;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
+    transition: var(--transition);
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+}
+
+.profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #e0f0ff, #f5f9ff);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 10px;
+}
+
+.profile-placeholder small {
+    margin-top: 10px;
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: fadeInUp 1s ease;
+}
+
+.hero .title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+.btn {
+    display: inline-block;
+    background: white;
+    color: var(--primary-color);
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+    animation: fadeInUp 1s ease 0.6s both;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    margin-left: 10px;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: var(--primary-color);
+}
+
+/* 关于我部分 */
+.about {
+    background: var(--light-color);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--accent-color);
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-text p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.about-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.detail-icon {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-right: 1rem;
+    margin-top: 5px;
+}
+
+.about-image {
+    text-align: center;
+}
+
+.about-image-placeholder {
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(45deg, #e0f0ff, #f5f9ff);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    box-shadow: var(--shadow);
+}
+
+/* 教育背景部分 */
+.education {
+    background: var(--bg-color);
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: var(--secondary-color);
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.timeline-item:nth-child(odd) {
+    padding-right: calc(50% + 30px);
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+    padding-left: calc(50% + 30px);
+}
+
+.timeline-content {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    position: relative;
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+}
+
+.timeline-item:nth-child(odd) .timeline-content::before {
+    right: -40px;
+}
+
+.timeline-item:nth-child(even) .timeline-content::before {
+    left: -40px;
+}
+
+.timeline-date {
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* 研究兴趣部分 */
+.research-interests {
+    background: var(--light-color);
+}
+
+.interests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.interest-card {
+    background: var(--card-bg);
+    padding: 2.5rem 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 4px solid var(--secondary-color);
+}
+
+.interest-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.interest-icon {
+    font-size: 3.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.interest-card:hover .interest-icon {
+    transform: scale(1.1);
+}
+
+.interest-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.interest-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* 专业技能部分 */
+.skills {
+    background: var(--bg-color);
+}
+
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.skill-category {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.skill-category h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.skill-item {
+    margin-bottom: 1.5rem;
+}
+
+.skill-name {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.skill-bar {
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.skill-level {
+    height: 100%;
+    background: var(--secondary-color);
+    border-radius: 5px;
+    transition: width 1s ease;
+    width: 0;
+}
+
+/* 知识图谱部分 */
+.knowledge-graph {
+    background: var(--light-color);
+}
+
+.graph-container {
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    margin-top: 2rem;
+}
+
+.graph-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.graph-btn {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+    margin: 5px;
+}
+
+.graph-btn:hover {
+    background: var(--primary-color);
+}
+
+.graph-visualization {
+    width: 100%;
+    height: 500px;
+    background: var(--light-color);
+    border-radius: 8px;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+.graph-node {
+    position: absolute;
+    background: var(--secondary-color);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    min-width: 120px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    font-weight: 500;
+    z-index: 2;
+    user-select: none;
+}
+
+.graph-node:hover {
+    background: var(--primary-color);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.graph-node.main {
+    background: var(--primary-color);
+    font-size: 1.1rem;
+    padding: 15px 20px;
+}
+
+.graph-node.tech {
+    background: #2ecc71;
+}
+
+.graph-node.app {
+    background: #e74c3c;
+}
+
+.graph-node.process {
+    background: #9b59b6;
+}
+
+.graph-info {
+    margin-top: 2rem;
+}
+
+.graph-info h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.graph-info ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.graph-info li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    position: relative;
+    padding-left: 25px;
+}
+
+.graph-info li::before {
+    content: '►';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+.graph-info strong {
+    color: var(--primary-color);
+}
+
+/* 联系方式部分 */
+.contact {
+    background: var(--bg-color);
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.contact-info {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.contact-item:hover {
+    background: rgba(74, 144, 226, 0.1);
+}
+
+.contact-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: var(--secondary-color);
+    width: 40px;
+    text-align: center;
+}
+
+.contact-form {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: var(--transition);
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.form-control:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* 页脚 */
+footer {
+    background: var(--dark-color);
+    color: white;
+    padding: 3rem 0 1rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.social-link:hover {
+    background: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.copyright {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #bbb;
+    text-align: center;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 999;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: #c0392b;
+    transform: translateY(-3px);
+}
+
+/* 动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
-
-    // 滚动显示动画
-    const fadeElements = document.querySelectorAll('.fade-in');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                
-                // 如果是技能条，触发动画
-                if (entry.target.classList.contains('skill-category')) {
-                    animateSkills();
-                }
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
-
-    fadeElements.forEach(element => {
-        observer.observe(element);
-    });
-
-    // 平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                // 关闭移动端菜单
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.textContent = '☰';
-                }
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // 返回顶部按钮
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 300) {
-            backToTop.classList.add('show');
-        } else {
-            backToTop.classList.remove('show');
-        }
-    });
-    
-    backToTop.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    // 项目筛选
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // 更新活动按钮
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            const filterValue = this.getAttribute('data-filter');
-            
-            // 筛选项目
-            projectCards.forEach(card => {
-                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    });
-
-    // 联系表单提交
-    const contactForm = document.getElementById('contactForm');
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('感谢您的消息！我会尽快回复。');
-        contactForm.reset();
-    });
-
-    // 生成知识图谱可视化
-    createKnowledgeGraph();
-    
-    // 初始化技能条动画
-    animateSkills();
-});
-
-// 技能条动画
-function animateSkills() {
-    const skillLevels = document.querySelectorAll('.skill-level');
-    skillLevels.forEach(level => {
-        const width = level.getAttribute('data-level') + '%';
-        level.style.width = width;
-    });
-}
-
-// 创建知识图谱可视化
-function createKnowledgeGraph() {
-    const graphArea = document.getElementById('graphArea');
-    
-    // 清除现有内容
-    graphArea.innerHTML = '';
-    
-    // 定义节点数据
-    const nodes = [
-        { id: 'mri', name: '磁共振成像', x: 50, y: 50, type: 'main', connections: ['sequences', 'applications', 'analysis'] },
-        { id: 'sequences', name: '成像序列', x: 25, y: 25, type: 'category', connections: ['t1', 't2', 'dwi', 'flair'] },
-        { id: 't1', name: 'T1加权', x: 10, y: 15, type: 'tech', connections: [] },
-        { id: 't2', name: 'T2加权', x: 25, y: 15, type: 'tech', connections: [] },
-        { id: 'dwi', name: '扩散加权', x: 40, y: 15, type: 'tech', connections: [] },
-        { id: 'flair', name: 'FLAIR', x: 10, y: 35, type: 'tech', connections: [] },
-        { id: 'applications', name: '临床应用', x: 75, y: 25, type: 'category', connections: ['neuro', 'cardio', 'musculo'] },
-        { id: 'neuro', name: '神经影像', x: 65, y: 15, type: 'app', connections: [] },
-        { id: 'cardio', name: '心血管成像', x: 80, y: 15, type: 'app', connections: [] },
-        { id: 'musculo', name: '肌肉骨骼', x: 70, y: 35, type: 'app', connections: [] },
-        { id: 'analysis', name: '数据分析', x: 50, y: 75, type: 'category', connections: ['reconstruction', 'quantitative', 'segmentation'] },
-        { id: 'reconstruction', name: '图像重建', x: 35, y: 85, type: 'process', connections: [] },
-        { id: 'quantitative', name: '定量分析', x: 50, y: 85, type: 'process', connections: [] },
-        { id: 'segmentation', name: '图像分割', x: 65, y: 85, type: 'process', connections: [] }
-    ];
-
-    // 创建节点
-    nodes.forEach(node => {
-        const nodeElement = document.createElement('div');
-        nodeElement.className = `graph-node ${node.type}`;
-        nodeElement.textContent = node.name;
-        nodeElement.style.left = `${node.x}%`;
-        nodeElement.style.top = `${node.y}%`;
-        nodeElement.setAttribute('data-id', node.id);
-        
-        // 使节点可拖动
-        makeDraggable(nodeElement);
-        
-        // 添加点击事件
-        nodeElement.addEventListener('click', function() {
-            showNodeInfo(node);
-        });
-        
-        graphArea.appendChild(nodeElement);
-    });
-
-    // 添加连线
-    createConnections(nodes);
-    
-    // 添加图谱控制功能
-    setupGraphControls();
-}
-
-// 创建节点间的连线
-function createConnections(nodes) {
-    const graphArea = document.getElementById('graphArea');
-    
-    // 创建SVG容器用于连线
-    const svgNS = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("width", "100%");
-    svg.setAttribute("height", "100%");
-    svg.style.position = "absolute";
-    svg.style.top = "0";
-    svg.style.left = "0";
-    svg.style.pointerEvents = "none";
-    svg.style.zIndex = "1";
-    
-    graphArea.appendChild(svg);
-    
-    // 绘制连线
-    nodes.forEach(node => {
-        if (node.connections && node.connections.length > 0) {
-            const fromElement = document.querySelector(`.graph-node[data-id="${node.id}"]`);
-            if (!fromElement) return;
-            
-            const fromRect = fromElement.getBoundingClientRect();
-            const graphRect = graphArea.getBoundingClientRect();
-            
-            const fromX = fromRect.left - graphRect.left + fromRect.width / 2;
-            const fromY = fromRect.top - graphRect.top + fromRect.height / 2;
-            
-            node.connections.forEach(connectionId => {
-                const toElement = document.querySelector(`.graph-node[data-id="${connectionId}"]`);
-                if (!toElement) return;
-                
-                const toRect = toElement.getBoundingClientRect();
-                const toX = toRect.left - graphRect.left + toRect.width / 2;
-                const toY = toRect.top - graphRect.top + toRect.height / 2;
-                
-                const line = document.createElementNS(svgNS, "line");
-                line.setAttribute("x1", fromX);
-                line.setAttribute("y1", fromY);
-                line.setAttribute("x2", toX);
-                line.setAttribute("y2", toY);
-                line.setAttribute("stroke", "rgba(52, 152, 219, 0.5)");
-                line.setAttribute("stroke-width", "2");
-                
-                svg.appendChild(line);
-            });
-        }
-    });
-    
-    // 更新函数，当节点移动时重新绘制连线
-    window.updateConnections = function() {
-        // 清除现有连线
-        while (svg.firstChild) {
-            svg.removeChild(svg.firstChild);
-        }
-        
-        // 重新绘制所有连线
-        nodes.forEach(node => {
-            if (node.connections && node.connections.length > 0) {
-                const fromElement = document.querySelector(`.graph-node[data-id="${node.id}"]`);
-                if (!fromElement) return;
-                
-                const fromRect = fromElement.getBoundingClientRect();
-                const graphRect = graphArea.getBoundingClientRect();
-                
-                const fromX = fromRect.left - graphRect.left + fromRect.width / 2;
-                const fromY = fromRect.top - graphRect.top + fromRect.height / 2;
-                
-                node.connections.forEach(connectionId => {
-                    const toElement = document.querySelector(`.graph-node[data-id="${connectionId}"]`);
-                    if (!toElement) return;
-                    
-                    const toRect = toElement.getBoundingClientRect();
-                    const toX = toRect.left - graphRect.left + toRect.width / 2;
-                    const toY = toRect.top - graphRect.top + toRect.height / 2;
-                    
-                    const line = document.createElementNS(svgNS, "line");
-                    line.setAttribute("x1", fromX);
-                    line.setAttribute("y1", fromY);
-                    line.setAttribute("x2", toX);
-                    line.setAttribute("y2", toY);
-                    line.setAttribute("stroke", "rgba(52, 152, 219, 0.5)");
-                    line.setAttribute("stroke-width", "2");
-                    
-                    svg.appendChild(line);
-                });
-            }
-        });
-    };
-}
-
-// 使节点可拖动
-function makeDraggable(element) {
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    
-    element.onmousedown = dragMouseDown;
-    
-    function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // 获取鼠标初始位置
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
-    }
-    
-    function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // 计算新位置
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        // 设置元素新位置
-        const newTop = (element.offsetTop - pos2) + "px";
-        const newLeft = (element.offsetLeft - pos1) + "px";
-        element.style.top = newTop;
-        element.style.left = newLeft;
-        element.style.transform = "none"; // 移除可能存在的变换效果
-        
-        // 更新连线
-        if (window.updateConnections) {
-            window.updateConnections();
-        }
-    }
-    
-    function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-// 设置图谱控制功能
-function setupGraphControls() {
-    const graphArea = document.getElementById('graphArea');
-    let scale = 1;
-    
-    document.getElementById('zoomIn').addEventListener('click', function() {
-        scale = Math.min(scale * 1.2, 3);
-        graphArea.style.transform = `scale(${scale})`;
-    });
-    
-    document.getElementById('zoomOut').addEventListener('click', function() {
-        scale = Math.max(scale / 1.2, 0.5);
-        graphArea.style.transform = `scale(${scale})`;
-    });
-    
-    document.getElementById('resetView').addEventListener('click', function() {
-        scale = 1;
-        graphArea.style.transform = `scale(${scale})`;
-        
-        // 重置所有节点位置
-        const nodes = document.querySelectorAll('.graph-node');
-        nodes.forEach(node => {
-            node.style.top = '';
-            node.style.left = '';
-            node.style.transform = '';
-        });
-        
-        // 更新连线
-        if (window.updateConnections) {
-            window.updateConnections();
-        }
-    });
-    
-    // 布局功能
-    document.getElementById('layoutVertical').addEventListener('click', function() {
-        applyVerticalLayout();
-    });
-    
-    document.getElementById('layoutHorizontal').addEventListener('click', function() {
-        applyHorizontalLayout();
-    });
-    
-    document.getElementById('layoutCircular').addEventListener('click', function() {
-        applyCircularLayout();
-    });
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
 }
 
-// 垂直布局
-function applyVerticalLayout() {
-    const nodes = [
-        { id: 'mri', x: 50, y: 10 },
-        { id: 'sequences', x: 25, y: 25 },
-        { id: 't1', x: 10, y: 40 },
-        { id: 't2', x: 25, y: 40 },
-        { id: 'dwi', x: 40, y: 40 },
-        { id: 'flair', x: 55, y: 40 },
-        { id: 'applications', x: 75, y: 25 },
-        { id: 'neuro', x: 65, y: 40 },
-        { id: 'cardio', x: 75, y: 40 },
-        { id: 'musculo', x: 85, y: 40 },
-        { id: 'analysis', x: 50, y: 55 },
-        { id: 'reconstruction', x: 35, y: 70 },
-        { id: 'quantitative', x: 50, y: 70 },
-        { id: 'segmentation', x: 65, y: 70 }
-    ];
-    
-    nodes.forEach(node => {
-        const element = document.querySelector(`.graph-node[data-id="${node.id}"]`);
-        if (element) {
-            element.style.left = `${node.x}%`;
-            element.style.top = `${node.y}%`;
-            element.style.transform = 'none';
-        }
-    });
-    
-    if (window.updateConnections) {
-        window.updateConnections();
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 1rem 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     }
-}
-
-// 水平布局
-function applyHorizontalLayout() {
-    const nodes = [
-        { id: 'mri', x: 50, y: 50 },
-        { id: 'sequences', x: 20, y: 30 },
-        { id: 't1', x: 5, y: 15 },
-        { id: 't2', x: 15, y: 15 },
-        { id: 'dwi', x: 25, y: 15 },
-        { id: 'flair', x: 35, y: 15 },
-        { id: 'applications', x: 80, y: 30 },
-        { id: 'neuro', x: 70, y: 15 },
-        { id: 'cardio', x: 80, y: 15 },
-        { id: 'musculo', x: 90, y: 15 },
-        { id: 'analysis', x: 50, y: 70 },
-        { id: 'reconstruction', x: 35, y: 85 },
-        { id: 'quantitative', x: 50, y: 85 },
-        { id: 'segmentation', x: 65, y: 85 }
-    ];
     
-    nodes.forEach(node => {
-        const element = document.querySelector(`.graph-node[data-id="${node.id}"]`);
-        if (element) {
-            element.style.left = `${node.x}%`;
-            element.style.top = `${node.y}%`;
-            element.style.transform = 'none';
-        }
-    });
-    
-    if (window.updateConnections) {
-        window.updateConnections();
+    .nav-links.active {
+        display: flex;
     }
-}
-
-// 环形布局
-function applyCircularLayout() {
-    const centerX = 50;
-    const centerY = 50;
-    const radius = 30;
-    const nodes = [
-        { id: 'mri', angle: 0 },
-        { id: 'sequences', angle: 45 },
-        { id: 't1', angle: 90 },
-        { id: 't2', angle: 135 },
-        { id: 'dwi', angle: 180 },
-        { id: 'flair', angle: 225 },
-        { id: 'applications', angle: 270 },
-        { id: 'neuro', angle: 315 },
-        { id: 'cardio', angle: 0 },
-        { id: 'musculo', angle: 45 },
-        { id: 'analysis', angle: 90 },
-        { id: 'reconstruction', angle: 135 },
-        { id: 'quantitative', angle: 180 },
-        { id: 'segmentation', angle: 225 }
-    ];
     
-    nodes.forEach((node, index) => {
-        const element = document.querySelector(`.graph-node[data-id="${node.id}"]`);
-        if (element) {
-            const angle = (index / nodes.length) * 2 * Math.PI;
-            const x = centerX + radius * Math.cos(angle);
-            const y = centerY + radius * Math.sin(angle);
-            element.style.left = `${x}%`;
-            element.style.top = `${y}%`;
-            element.style.transform = 'none';
-        }
-    });
-    
-    if (window.updateConnections) {
-        window.updateConnections();
+    .nav-links li {
+        margin: 0;
+        text-align: center;
+        padding: 0.8rem 0;
     }
-}
-
-// 显示节点详细信息
-function showNodeInfo(node) {
-    const nodeInfo = {
-        'mri': '磁共振成像（Magnetic Resonance Imaging, MRI）是一种利用核磁共振原理的医学影像技术，能够生成人体内部结构的详细图像。',
-        'sequences': 'MRI成像序列是一系列射频脉冲和梯度磁场的组合，用于产生不同类型的组织对比度图像。',
-        't1': 'T1加权成像突出显示解剖结构，脂肪组织显示为亮信号，水显示为暗信号。',
-        't2': 'T2加权成像对水含量敏感，常用于检测水肿、炎症和某些病理变化。',
-        'dwi': '扩散加权成像通过测量水分子扩散运动来评估组织微观结构，对急性脑缺血特别敏感。',
-        'flair': 'FLAIR（Fluid Attenuated Inversion Recovery）序列抑制脑脊液信号，使邻近脑室的病变更加明显。',
-        'applications': 'MRI广泛应用于神经、心血管、肌肉骨骼、腹部和盆腔等部位的临床诊断。',
-        'neuro': '神经影像应用包括脑肿瘤、脑血管疾病、神经退行性疾病和发育异常等的诊断与评估。',
-        'cardio': '心脏MRI可评估心脏结构、功能、灌注和 viability，对心肌病、先天性心脏病等有重要诊断价值。',
-        'musculo': '肌肉骨骼MRI用于评估关节、肌肉、肌腱和韧带损伤，以及骨肿瘤和感染等疾病。',
-        'analysis': 'MRI数据分析包括图像重建、后处理、定量参数提取和人工智能辅助诊断等。',
-        'reconstruction': '图像重建是将原始k空间数据转换为可视图像的过程，常用方法包括傅里叶变换和压缩感知。',
-        'quantitative': '定量MRI分析提取组织的物理和生理参数，如T1、T2弛豫时间、扩散系数和灌注参数等。',
-        'segmentation': '图像分割是将图像划分为具有不同意义的区域，常用于器官、组织和病变的自动识别与定量分析。'
-    };
     
-    // 创建模态框显示详细信息
-    const modal = document.createElement('div');
-    modal.style.position = 'fixed';
-    modal.style.top = '0';
-    modal.style.left = '0';
-    modal.style.width = '100%';
-    modal.style.height = '100%';
-    modal.style.backgroundColor = 'rgba(0,0,0,0.7)';
-    modal.style.display = 'flex';
-    modal.style.alignItems = 'center';
-    modal.style.justifyContent = 'center';
-    modal.style.zIndex = '10000';
+    .mobile-menu-btn {
+        display: block;
+    }
     
-    const modalContent = document.createElement('div');
-    modalContent.style.backgroundColor = 'var(--card-bg)';
-    modalContent.style.padding = '2rem';
-    modalContent.style.borderRadius = '10px';
-    modalContent.style.maxWidth = '500px';
-    modalContent.style.width = '90%';
-    modalContent.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
-    modalContent.style.position = 'relative';
+    .hero h1 {
+        font-size: 2.2rem;
+    }
     
-    const closeBtn = document.createElement('button');
-    closeBtn.innerHTML = '&times;';
-    closeBtn.style.position = 'absolute';
-    closeBtn.style.top = '10px';
-    closeBtn.style.right = '15px';
-    closeBtn.style.background = 'none';
-    closeBtn.style.border = 'none';
-    closeBtn.style.fontSize = '1.5rem';
-    closeBtn.style.cursor = 'pointer';
-    closeBtn.style.color = 'var(--text-color)';
+    .hero .title {
+        font-size: 1.2rem;
+    }
     
-    const title = document.createElement('h3');
-    title.textContent = node.name;
-    title.style.color = 'var(--primary-color)';
-    title.style.marginBottom = '1rem';
+    .section-title {
+        font-size: 2rem;
+    }
     
-    const content = document.createElement('p');
-    content.textContent = nodeInfo[node.id] || '详细信息正在更新中...';
-    content.style.lineHeight = '1.6';
+    .about-content {
+        grid-template-columns: 1fr;
+    }
     
-    modalContent.appendChild(closeBtn);
-    modalContent.appendChild(title);
-    modalContent.appendChild(content);
-    modal.appendChild(modalContent);
+    .about-details {
+        grid-template-columns: 1fr;
+    }
     
-    document.body.appendChild(modal);
+    .timeline::before {
+        left: 30px;
+    }
     
-    // 关闭模态框
-    closeBtn.addEventListener('click', function() {
-        document.body.removeChild(modal);
-    });
+    .timeline-item {
+        padding-left: 70px !important;
+        padding-right: 0 !important;
+        text-align: left !important;
+    }
     
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            document.body.removeChild(modal);
-        }
-    });
+    .timeline-content::before {
+        left: -40px !important;
+    }
+    
+    .interests-grid,
+    .skills-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .graph-controls {
+        flex-direction: column;
+        align-items: center;
+    }
 }

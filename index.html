@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>医学影像研究 - 个人学术主页</title>
+    <title>刘畅 - 天津医科大学医学影像学</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -12,24 +12,19 @@
     <nav class="navbar" id="navbar">
         <div class="container nav-content">
             <div class="logo">
-                <span class="logo-icon">🧠</span>
-                <span>医学影像研究</span>
+                <span class="logo-icon"><i class="fas fa-stethoscope"></i></span>
+                <span>刘畅 | 医学影像学</span>
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#education">教育背景</a></li>
                 <li><a href="#research">研究兴趣</a></li>
                 <li><a href="#skills">专业技能</a></li>
-                <li><a href="#projects">项目展示</a></li>
                 <li><a href="#knowledge-graph">知识图谱</a></li>
-                <li><a href="#blog">学术动态</a></li>
                 <li><a href="#contact">联系方式</a></li>
             </ul>
-            <div>
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
-            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </div>
     </nav>
 
@@ -40,18 +35,110 @@
             <div class="container hero-content">
                 <div class="profile-container">
                     <div class="profile-img">
-                        <div class="profile-placeholder">
+                        <img src="assets/liuchang-photo.jpg" alt="刘畅的个人照片" onerror="handleImageError(this)">
+                        <div class="profile-placeholder" id="photoPlaceholder">
                             <i class="fas fa-user-md" style="font-size: 3rem; margin-bottom: 10px;"></i>
-                            <div>个人照片区域</div>
+                            <div>个人照片</div>
+                            <small>请将照片放入assets文件夹</small>
                         </div>
                     </div>
-                    <h1>张三 博士</h1>
-                    <div class="title">医学影像与人工智能研究员</div>
+                    <h1>刘畅</h1>
+                    <div class="title">天津医科大学医学影像学学生</div>
                 </div>
-                <p>专注于磁共振成像技术与临床应用研究，致力于通过人工智能方法提升医学影像诊断的准确性和效率。</p>
+                <p>专注于医学影像诊断与技术创新，致力于通过精准影像诊断提升临床诊疗水平</p>
                 <div>
-                    <a href="#research" class="btn">探索我的研究</a>
+                    <a href="#about" class="btn">了解更多</a>
                     <a href="#contact" class="btn btn-outline">联系我</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于我 -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">关于我</h2>
+                <p class="section-subtitle">天津医科大学医学影像学专业学生</p>
+                
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>我是刘畅，天津医科大学医学影像学专业的学生。我对医学影像技术充满热情，特别关注影像诊断与临床医学的结合，希望通过精准的影像诊断为患者提供更好的医疗服务。</p>
+                        <p>在校期间，我系统学习了医学影像学的基础理论和实践技能，积极参与医院实习和科研项目。我坚信医学影像作为现代医学的重要支柱，在疾病诊断和治疗中发挥着不可替代的作用。</p>
+                        <p>我的长期目标是成为一名优秀的医学影像诊断医师，将前沿影像技术应用于临床实践，为患者提供精准、高效的诊断服务。</p>
+                        
+                        <div class="about-details">
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-graduation-cap"></i></div>
+                                <div>
+                                    <h4>医学影像学专业</h4>
+                                    <p>天津医科大学</p>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                <div>
+                                    <h4>所在地</h4>
+                                    <p>中国，天津</p>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-heartbeat"></i></div>
+                                <div>
+                                    <h4>专业方向</h4>
+                                    <p>医学影像诊断</p>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-icon"><i class="fas fa-flask"></i></div>
+                                <div>
+                                    <h4>研究领域</h4>
+                                    <p>影像诊断、人工智能影像分析</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <div class="about-image-placeholder">
+                            <i class="fas fa-x-ray" style="font-size: 5rem;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 教育背景 -->
+        <section id="education" class="education">
+            <div class="container">
+                <h2 class="section-title">教育背景</h2>
+                <p class="section-subtitle">我的学术历程与专业培训</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content fade-in">
+                            <div class="timeline-date">2020 - 至今</div>
+                            <h3>天津医科大学</h3>
+                            <p>医学影像学专业</p>
+                            <p>主修课程：医学影像诊断学、医学影像设备学、放射诊断学、超声诊断学、核医学、医学影像技术学等</p>
+                            <p>GPA: 3.7/4.0</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content fade-in">
+                            <div class="timeline-date">2023年暑期</div>
+                            <h3>天津医科大学总医院实习</h3>
+                            <p>医学影像科实习</p>
+                            <p>参与CT、MRI、DR等影像设备的操作与诊断工作</p>
+                            <p>学习影像诊断报告的书写与病例分析</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content fade-in">
+                            <div class="timeline-date">2017 - 2020</div>
+                            <h3>天津市第一中学</h3>
+                            <p>理科班</p>
+                            <p>生物竞赛市级一等奖</p>
+                            <p>物理竞赛市级二等奖</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -60,22 +147,28 @@
         <section id="research" class="research-interests">
             <div class="container">
                 <h2 class="section-title">研究兴趣</h2>
-                <p class="section-subtitle">我的研究主要集中在医学影像分析、人工智能算法开发及其在临床诊断中的应用</p>
+                <p class="section-subtitle">我关注的医学影像研究领域与方向</p>
+                
                 <div class="interests-grid">
                     <div class="interest-card fade-in">
                         <div class="interest-icon"><i class="fas fa-brain"></i></div>
-                        <h3>磁共振成像</h3>
-                        <p>高场强MRI序列开发、快速成像技术、定量磁共振参数映射、功能磁共振成像数据分析</p>
+                        <h3>神经影像学</h3>
+                        <p>研究脑部疾病的影像诊断，特别关注阿尔茨海默病、脑肿瘤等神经系统疾病的影像特征与诊断标准。</p>
+                    </div>
+                    <div class="interest-card fade-in">
+                        <div class="interest-icon"><i class="fas fa-lungs"></i></div>
+                        <h3>胸部影像学</h3>
+                        <p>探索肺部疾病的影像诊断方法，关注肺癌早期筛查、肺炎鉴别诊断等临床重要问题。</p>
                     </div>
                     <div class="interest-card fade-in">
                         <div class="interest-icon"><i class="fas fa-robot"></i></div>
-                        <h3>人工智能</h3>
-                        <p>深度学习在医学影像分析中的应用、图像分割、病灶检测与分类、生成对抗网络数据增强</p>
+                        <h3>AI影像分析</h3>
+                        <p>研究人工智能在医学影像分析中的应用，包括图像分割、病灶检测和辅助诊断系统的开发。</p>
                     </div>
                     <div class="interest-card fade-in">
-                        <div class="interest-icon"><i class="fas fa-microscope"></i></div>
-                        <h3>临床应用</h3>
-                        <p>神经系统疾病诊断、肿瘤影像学评估、治疗反应监测、影像组学与预后预测</p>
+                        <div class="interest-icon"><i class="fas fa-heart"></i></div>
+                        <h3>心血管影像</h3>
+                        <p>研究心脏和血管疾病的影像诊断技术，特别关注冠脉CTA、心脏MRI等先进成像方法。</p>
                     </div>
                 </div>
             </div>
@@ -85,22 +178,32 @@
         <section id="skills" class="skills">
             <div class="container">
                 <h2 class="section-title">专业技能</h2>
-                <p class="section-subtitle">我在医学影像和人工智能领域具备的专业技能和技术能力</p>
+                <p class="section-subtitle">我在医学影像学领域掌握的专业技能</p>
+                
                 <div class="skills-container">
                     <div class="skill-category fade-in">
-                        <h3>医学影像技术</h3>
+                        <h3>影像诊断技术</h3>
                         <div class="skill-item">
                             <div class="skill-name">
-                                <span>磁共振成像</span>
-                                <span>90%</span>
+                                <span>CT诊断</span>
+                                <span>85%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-level" data-level="90"></div>
+                                <div class="skill-level" data-level="85"></div>
                             </div>
                         </div>
                         <div class="skill-item">
                             <div class="skill-name">
-                                <span>CT成像</span>
+                                <span>MRI诊断</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>超声诊断</span>
                                 <span>75%</span>
                             </div>
                             <div class="skill-bar">
@@ -109,67 +212,7 @@
                         </div>
                         <div class="skill-item">
                             <div class="skill-name">
-                                <span>超声成像</span>
-                                <span>70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="70"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-category fade-in">
-                        <h3>编程与数据分析</h3>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>Python</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>MATLAB</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>R语言</span>
-                                <span>70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="70"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-category fade-in">
-                        <h3>AI与机器学习</h3>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>深度学习</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>计算机视觉</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" data-level="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>医学图像处理</span>
+                                <span>X线诊断</span>
                                 <span>90%</span>
                             </div>
                             <div class="skill-bar">
@@ -177,65 +220,83 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 项目展示 -->
-        <section id="projects" class="projects">
-            <div class="container">
-                <h2 class="section-title">项目展示</h2>
-                <p class="section-subtitle">我参与或主导的医学影像与AI相关研究项目</p>
-                
-                <div class="projects-filter">
-                    <button class="filter-btn active" data-filter="all">全部</button>
-                    <button class="filter-btn" data-filter="ai">人工智能</button>
-                    <button class="filter-btn" data-filter="mri">磁共振</button>
-                    <button class="filter-btn" data-filter="clinical">临床应用</button>
-                </div>
-                
-                <div class="projects-grid">
-                    <div class="project-card fade-in" data-category="ai">
-                        <div class="project-img">
-                            <i class="fas fa-robot" style="font-size: 3rem;"></i>
+                    
+                    <div class="skill-category fade-in">
+                        <h3>影像设备操作</h3>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>CT设备操作</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="80"></div>
+                            </div>
                         </div>
-                        <div class="project-content">
-                            <h3>基于深度学习的脑肿瘤自动分割</h3>
-                            <p>开发了一种基于U-Net的深度学习模型，用于MRI图像中脑肿瘤的自动分割，准确率达到95%。</p>
-                            <div class="project-tags">
-                                <span class="project-tag">深度学习</span>
-                                <span class="project-tag">图像分割</span>
-                                <span class="project-tag">医学影像</span>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>MRI设备操作</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="75"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>超声设备操作</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>DR设备操作</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="90"></div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="project-card fade-in" data-category="mri">
-                        <div class="project-img">
-                            <i class="fas fa-magnet" style="font-size: 3rem;"></i>
-                        </div>
-                        <div class="project-content">
-                            <h3>快速磁共振成像序列优化</h3>
-                            <p>研究并优化了快速MRI序列，将扫描时间缩短40%，同时保持图像质量。</p>
-                            <div class="project-tags">
-                                <span class="project-tag">磁共振</span>
-                                <span class="project-tag">序列优化</span>
-                                <span class="project-tag">快速成像</span>
+                    <div class="skill-category fade-in">
+                        <h3>相关技能</h3>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>医学图像处理</span>
+                                <span>70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="70"></div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="project-card fade-in" data-category="clinical">
-                        <div class="project-img">
-                            <i class="fas fa-heartbeat" style="font-size: 3rem;"></i>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>影像报告书写</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="85"></div>
+                            </div>
                         </div>
-                        <div class="project-content">
-                            <h3>阿尔茨海默病早期诊断系统</h3>
-                            <p>基于多模态MRI数据开发了阿尔茨海默病早期诊断系统，准确率超过90%。</p>
-                            <div class="project-tags">
-                                <span class="project-tag">神经影像</span>
-                                <span class="project-tag">早期诊断</span>
-                                <span class="project-tag">临床应用</span>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>病例分析</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>医学英语</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="75"></div>
                             </div>
                         </div>
                     </div>
@@ -246,8 +307,8 @@
         <!-- 知识图谱 -->
         <section id="knowledge-graph" class="knowledge-graph">
             <div class="container">
-                <h2 class="section-title">磁共振成像知识图谱</h2>
-                <p class="section-subtitle">探索磁共振成像技术的关键概念和相互关系</p>
+                <h2 class="section-title">医学影像学知识图谱</h2>
+                <p class="section-subtitle">探索医学影像学知识体系的关键概念和相互关系</p>
                 
                 <div class="graph-container">
                     <div class="graph-controls">
@@ -269,68 +330,13 @@
                     
                     <div class="graph-info">
                         <h3>知识图谱说明</h3>
-                        <p>此知识图谱展示了磁共振成像技术的关键组成部分，包括：</p>
+                        <p>此知识图谱展示了医学影像学知识体系的关键组成部分，包括：</p>
                         <ul>
-                            <li><strong>成像序列</strong>: T1加权、T2加权、FLAIR、扩散加权成像等</li>
-                            <li><strong>技术参数</strong>: 重复时间(TR)、回波时间(TE)、翻转角等</li>
-                            <li><strong>临床应用</strong>: 神经影像、肌肉骨骼成像、心血管成像等</li>
-                            <li><strong>数据分析</strong>: 图像重建、后处理、定量分析等</li>
+                            <li><strong>成像技术</strong>: CT、MRI、超声、X线、核医学等</li>
+                            <li><strong>解剖系统</strong>: 神经系统、胸部、腹部、骨骼肌肉系统等</li>
+                            <li><strong>疾病诊断</strong>: 肿瘤、炎症、创伤、退行性病变等</li>
+                            <li><strong>影像分析</strong>: 图像处理、人工智能、定量分析等</li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 学术动态 -->
-        <section id="blog" class="blog">
-            <div class="container">
-                <h2 class="section-title">学术动态</h2>
-                <p class="section-subtitle">最新的研究成果、学术活动和行业动态</p>
-                
-                <div class="blog-grid">
-                    <div class="blog-card fade-in">
-                        <div class="blog-img">
-                            <i class="fas fa-newspaper" style="font-size: 3rem;"></i>
-                        </div>
-                        <div class="blog-content">
-                            <h3>论文被Medical Image Analysis接收</h3>
-                            <div class="blog-meta">
-                                <span><i class="far fa-calendar"></i> 2023-10-15</span>
-                                <span><i class="far fa-comment"></i> 学术成果</span>
-                            </div>
-                            <p>我们的最新论文"基于深度学习的多模态医学图像融合方法"被医学图像分析顶级期刊接收。</p>
-                            <a href="#" class="btn" style="padding: 8px 16px; font-size: 0.9rem;">阅读更多</a>
-                        </div>
-                    </div>
-                    
-                    <div class="blog-card fade-in">
-                        <div class="blog-img">
-                            <i class="fas fa-chalkboard-teacher" style="font-size: 3rem;"></i>
-                        </div>
-                        <div class="blog-content">
-                            <h3>在国际医学影像大会做报告</h3>
-                            <div class="blog-meta">
-                                <span><i class="far fa-calendar"></i> 2023-09-20</span>
-                                <span><i class="far fa-comment"></i> 学术活动</span>
-                            </div>
-                            <p>受邀在第25届国际医学影像大会上做关于"AI在神经影像诊断中的应用"的主题报告。</p>
-                            <a href="#" class="btn" style="padding: 8px 16px; font-size: 0.9rem;">阅读更多</a>
-                        </div>
-                    </div>
-                    
-                    <div class="blog-card fade-in">
-                        <div class="blog-img">
-                            <i class="fas fa-award" style="font-size: 3rem;"></i>
-                        </div>
-                        <div class="blog-content">
-                            <h3>获得国家自然科学基金资助</h3>
-                            <div class="blog-meta">
-                                <span><i class="far fa-calendar"></i> 2023-08-05</span>
-                                <span><i class="far fa-comment"></i> 科研资助</span>
-                            </div>
-                            <p>我们的项目"基于人工智能的快速MRI重建与诊断系统"获得国家自然科学基金面上项目资助。</p>
-                            <a href="#" class="btn" style="padding: 8px 16px; font-size: 0.9rem;">阅读更多</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -340,7 +346,7 @@
         <section id="contact" class="contact">
             <div class="container">
                 <h2 class="section-title">联系方式</h2>
-                <p class="section-subtitle">欢迎与我交流合作，共同推动医学影像技术的发展</p>
+                <p class="section-subtitle">欢迎与我交流医学影像学问题或研究合作</p>
                 
                 <div class="contact-container">
                     <div class="contact-info">
@@ -349,21 +355,21 @@
                             <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                             <div>
                                 <h4>电子邮件</h4>
-                                <p>researcher@example.com</p>
+                                <p>liuchang@tmu.edu.cn</p>
                             </div>
                         </div>
                         <div class="contact-item">
                             <div class="contact-icon"><i class="fas fa-phone"></i></div>
                             <div>
                                 <h4>电话</h4>
-                                <p>+86 XXX-XXXX-XXXX</p>
+                                <p>+86 138-XXXX-XXXX</p>
                             </div>
                         </div>
                         <div class="contact-item">
                             <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                             <div>
                                 <h4>地址</h4>
-                                <p>某某大学医学影像系，某某市，某某省</p>
+                                <p>天津医科大学，天津市</p>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -407,19 +413,18 @@
         <div class="container">
             <div class="footer-content">
                 <div class="logo">
-                    <span class="logo-icon">🧠</span>
-                    <span>医学影像研究</span>
+                    <span class="logo-icon"><i class="fas fa-stethoscope"></i></span>
+                    <span>刘畅 | 天津医科大学</span>
                 </div>
                 <div class="social-links">
-                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-link" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                    <a href="#" class="social-link" title="微信"><i class="fab fa-weixin"></i></a>
+                    <a href="#" class="social-link" title="邮箱"><i class="fas fa-envelope"></i></a>
+                    <a href="#" class="social-link" title="学术平台"><i class="fas fa-graduation-cap"></i></a>
                     <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
-                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
                 </div>
                 <div class="copyright">
-                    &copy; 2024 医学影像研究个人主页. 保留所有权利.<br>
-                    设计 by 张三
+                    &copy; 2023 刘畅个人学术主页. 保留所有权利.<br>
+                    天津医科大学医学影像学专业
                 </div>
             </div>
         </div>

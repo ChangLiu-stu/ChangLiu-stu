@@ -4,13 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', function() {
         if (window.scrollY > 100) {
-            navbar.style.background = 'var(--primary-color)';
+            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
             navbar.style.backdropFilter = 'blur(10px)';
-            navbar.style.padding = '0.7rem 0';
+            navbar.style.padding = '0.8rem 0';
         } else {
-            navbar.style.background = 'var(--primary-color)';
-            navbar.style.backdropFilter = 'none';
-            navbar.style.padding = '1rem 0';
+            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            navbar.style.backdropFilter = 'blur(10px)';
+            navbar.style.padding = '1.2rem 0';
         }
     });
 
@@ -22,30 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
         navLinks.classList.toggle('active');
         mobileMenuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
     });
-
-    // 深色模式切换
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = themeToggle.querySelector('i');
-    
-    themeToggle.addEventListener('click', function() {
-        document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains('dark-mode')) {
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
-            localStorage.setItem('theme', 'light');
-        }
-    });
-
-    // 检查本地存储的主题设置
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-    }
 
     // 滚动显示动画
     const fadeElements = document.querySelectorAll('.fade-in');
@@ -109,29 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 项目筛选
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // 更新活动按钮
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            const filterValue = this.getAttribute('data-filter');
-            
-            // 筛选项目
-            projectCards.forEach(card => {
-                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    });
-
     // 联系表单提交
     const contactForm = document.getElementById('contactForm');
     contactForm.addEventListener('submit', function(e) {
@@ -146,6 +99,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化技能条动画
     animateSkills();
 });
+
+// 照片加载错误处理函数
+function handleImageError(img) {
+    img.style.display = 'none';
+    const placeholder = document.getElementById('photoPlaceholder');
+    if (placeholder) {
+        placeholder.style.display = 'flex';
+    }
+}
 
 // 技能条动画
 function animateSkills() {
@@ -165,20 +127,27 @@ function createKnowledgeGraph() {
     
     // 定义节点数据
     const nodes = [
-        { id: 'mri', name: '磁共振成像', x: 50, y: 50, type: 'main', connections: ['sequences', 'applications', 'analysis'] },
-        { id: 'sequences', name: '成像序列', x: 25, y: 25, type: 'category', connections: ['t1', 't2', 'dwi', 'flair'] },
-        { id: 't1', name: 'T1加权', x: 10, y: 15, type: 'tech', connections: [] },
-        { id: 't2', name: 'T2加权', x: 25, y: 15, type: 'tech', connections: [] },
-        { id: 'dwi', name: '扩散加权', x: 40, y: 15, type: 'tech', connections: [] },
-        { id: 'flair', name: 'FLAIR', x: 10, y: 35, type: 'tech', connections: [] },
-        { id: 'applications', name: '临床应用', x: 75, y: 25, type: 'category', connections: ['neuro', 'cardio', 'musculo'] },
-        { id: 'neuro', name: '神经影像', x: 65, y: 15, type: 'app', connections: [] },
-        { id: 'cardio', name: '心血管成像', x: 80, y: 15, type: 'app', connections: [] },
-        { id: 'musculo', name: '肌肉骨骼', x: 70, y: 35, type: 'app', connections: [] },
-        { id: 'analysis', name: '数据分析', x: 50, y: 75, type: 'category', connections: ['reconstruction', 'quantitative', 'segmentation'] },
-        { id: 'reconstruction', name: '图像重建', x: 35, y: 85, type: 'process', connections: [] },
-        { id: 'quantitative', name: '定量分析', x: 50, y: 85, type: 'process', connections: [] },
-        { id: 'segmentation', name: '图像分割', x: 65, y: 85, type: 'process', connections: [] }
+        { id: 'medical-imaging', name: '医学影像学', x: 50, y: 50, type: 'main', connections: ['imaging-tech', 'anatomy-systems', 'disease-diagnosis', 'image-analysis'] },
+        { id: 'imaging-tech', name: '成像技术', x: 25, y: 25, type: 'category', connections: ['ct', 'mri', 'ultrasound', 'xray', 'nuclear'] },
+        { id: 'ct', name: 'CT', x: 10, y: 15, type: 'tech', connections: [] },
+        { id: 'mri', name: 'MRI', x: 20, y: 15, type: 'tech', connections: [] },
+        { id: 'ultrasound', name: '超声', x: 30, y: 15, type: 'tech', connections: [] },
+        { id: 'xray', name: 'X线', x: 10, y: 35, type: 'tech', connections: [] },
+        { id: 'nuclear', name: '核医学', x: 20, y: 35, type: 'tech', connections: [] },
+        { id: 'anatomy-systems', name: '解剖系统', x: 75, y: 25, type: 'category', connections: ['neuro', 'chest', 'abdomen', 'msk'] },
+        { id: 'neuro', name: '神经系统', x: 65, y: 15, type: 'app', connections: [] },
+        { id: 'chest', name: '胸部', x: 75, y: 15, type: 'app', connections: [] },
+        { id: 'abdomen', name: '腹部', x: 85, y: 15, type: 'app', connections: [] },
+        { id: 'msk', name: '骨骼肌肉', x: 70, y: 35, type: 'app', connections: [] },
+        { id: 'disease-diagnosis', name: '疾病诊断', x: 25, y: 75, type: 'category', connections: ['tumors', 'inflammation', 'trauma', 'degenerative'] },
+        { id: 'tumors', name: '肿瘤', x: 10, y: 85, type: 'process', connections: [] },
+        { id: 'inflammation', name: '炎症', x: 20, y: 85, type: 'process', connections: [] },
+        { id: 'trauma', name: '创伤', x: 30, y: 85, type: 'process', connections: [] },
+        { id: 'degenerative', name: '退行性病变', x: 40, y: 85, type: 'process', connections: [] },
+        { id: 'image-analysis', name: '影像分析', x: 75, y: 75, type: 'category', connections: ['image-processing', 'ai', 'quantitative'] },
+        { id: 'image-processing', name: '图像处理', x: 65, y: 85, type: 'process', connections: [] },
+        { id: 'ai', name: '人工智能', x: 75, y: 85, type: 'process', connections: [] },
+        { id: 'quantitative', name: '定量分析', x: 85, y: 85, type: 'process', connections: [] }
     ];
 
     // 创建节点
@@ -249,8 +218,8 @@ function createConnections(nodes) {
                 line.setAttribute("x1", fromX);
                 line.setAttribute("y1", fromY);
                 line.setAttribute("x2", toX);
-                line.setAttribute("y2", toY);
-                line.setAttribute("stroke", "rgba(52, 152, 219, 0.5)");
+                line.setAttribute("y2", toY");
+                line.setAttribute("stroke", "rgba(74, 144, 226, 0.5)");
                 line.setAttribute("stroke-width", "2");
                 
                 svg.appendChild(line);
@@ -290,7 +259,7 @@ function createConnections(nodes) {
                     line.setAttribute("y1", fromY);
                     line.setAttribute("x2", toX);
                     line.setAttribute("y2", toY);
-                    line.setAttribute("stroke", "rgba(52, 152, 219, 0.5)");
+                    line.setAttribute("stroke", "rgba(74, 144, 226, 0.5)");
                     line.setAttribute("stroke-width", "2");
                     
                     svg.appendChild(line);
@@ -393,20 +362,27 @@ function setupGraphControls() {
 // 垂直布局
 function applyVerticalLayout() {
     const nodes = [
-        { id: 'mri', x: 50, y: 10 },
-        { id: 'sequences', x: 25, y: 25 },
-        { id: 't1', x: 10, y: 40 },
-        { id: 't2', x: 25, y: 40 },
-        { id: 'dwi', x: 40, y: 40 },
-        { id: 'flair', x: 55, y: 40 },
-        { id: 'applications', x: 75, y: 25 },
+        { id: 'medical-imaging', x: 50, y: 10 },
+        { id: 'imaging-tech', x: 25, y: 25 },
+        { id: 'ct', x: 10, y: 40 },
+        { id: 'mri', x: 20, y: 40 },
+        { id: 'ultrasound', x: 30, y: 40 },
+        { id: 'xray', x: 40, y: 40 },
+        { id: 'nuclear', x: 50, y: 40 },
+        { id: 'anatomy-systems', x: 75, y: 25 },
         { id: 'neuro', x: 65, y: 40 },
-        { id: 'cardio', x: 75, y: 40 },
-        { id: 'musculo', x: 85, y: 40 },
-        { id: 'analysis', x: 50, y: 55 },
-        { id: 'reconstruction', x: 35, y: 70 },
-        { id: 'quantitative', x: 50, y: 70 },
-        { id: 'segmentation', x: 65, y: 70 }
+        { id: 'chest', x: 75, y: 40 },
+        { id: 'abdomen', x: 85, y: 40 },
+        { id: 'msk', x: 95, y: 40 },
+        { id: 'disease-diagnosis', x: 25, y: 55 },
+        { id: 'tumors', x: 10, y: 70 },
+        { id: 'inflammation', x: 25, y: 70 },
+        { id: 'trauma', x: 40, y: 70 },
+        { id: 'degenerative', x: 55, y: 70 },
+        { id: 'image-analysis', x: 75, y: 55 },
+        { id: 'image-processing', x: 65, y: 70 },
+        { id: 'ai', x: 75, y: 70 },
+        { id: 'quantitative', x: 85, y: 70 }
     ];
     
     nodes.forEach(node => {
@@ -426,20 +402,27 @@ function applyVerticalLayout() {
 // 水平布局
 function applyHorizontalLayout() {
     const nodes = [
-        { id: 'mri', x: 50, y: 50 },
-        { id: 'sequences', x: 20, y: 30 },
-        { id: 't1', x: 5, y: 15 },
-        { id: 't2', x: 15, y: 15 },
-        { id: 'dwi', x: 25, y: 15 },
-        { id: 'flair', x: 35, y: 15 },
-        { id: 'applications', x: 80, y: 30 },
+        { id: 'medical-imaging', x: 50, y: 50 },
+        { id: 'imaging-tech', x: 20, y: 30 },
+        { id: 'ct', x: 5, y: 15 },
+        { id: 'mri', x: 15, y: 15 },
+        { id: 'ultrasound', x: 25, y: 15 },
+        { id: 'xray', x: 35, y: 15 },
+        { id: 'nuclear', x: 45, y: 15 },
+        { id: 'anatomy-systems', x: 80, y: 30 },
         { id: 'neuro', x: 70, y: 15 },
-        { id: 'cardio', x: 80, y: 15 },
-        { id: 'musculo', x: 90, y: 15 },
-        { id: 'analysis', x: 50, y: 70 },
-        { id: 'reconstruction', x: 35, y: 85 },
-        { id: 'quantitative', x: 50, y: 85 },
-        { id: 'segmentation', x: 65, y: 85 }
+        { id: 'chest', x: 80, y: 15 },
+        { id: 'abdomen', x: 90, y: 15 },
+        { id: 'msk', x: 100, y: 15 },
+        { id: 'disease-diagnosis', x: 20, y: 70 },
+        { id: 'tumors', x: 5, y: 85 },
+        { id: 'inflammation', x: 20, y: 85 },
+        { id: 'trauma', x: 35, y: 85 },
+        { id: 'degenerative', x: 50, y: 85 },
+        { id: 'image-analysis', x: 80, y: 70 },
+        { id: 'image-processing', x: 70, y: 85 },
+        { id: 'ai', x: 80, y: 85 },
+        { id: 'quantitative', x: 90, y: 85 }
     ];
     
     nodes.forEach(node => {
@@ -460,25 +443,32 @@ function applyHorizontalLayout() {
 function applyCircularLayout() {
     const centerX = 50;
     const centerY = 50;
-    const radius = 30;
+    const radius = 35;
     const nodes = [
-        { id: 'mri', angle: 0 },
-        { id: 'sequences', angle: 45 },
-        { id: 't1', angle: 90 },
-        { id: 't2', angle: 135 },
-        { id: 'dwi', angle: 180 },
-        { id: 'flair', angle: 225 },
-        { id: 'applications', angle: 270 },
-        { id: 'neuro', angle: 315 },
-        { id: 'cardio', angle: 0 },
-        { id: 'musculo', angle: 45 },
-        { id: 'analysis', angle: 90 },
-        { id: 'reconstruction', angle: 135 },
-        { id: 'quantitative', angle: 180 },
-        { id: 'segmentation', angle: 225 }
+        { id: 'medical-imaging' },
+        { id: 'imaging-tech' },
+        { id: 'ct' },
+        { id: 'mri' },
+        { id: 'ultrasound' },
+        { id: 'xray' },
+        { id: 'nuclear' },
+        { id: 'anatomy-systems' },
+        { id: 'neuro' },
+        { id: 'chest' },
+        { id: 'abdomen' },
+        { id: 'msk' },
+        { id: 'disease-diagnosis' },
+        { id: 'tumors' },
+        { id: 'inflammation' },
+        { id: 'trauma' },
+        { id: 'degenerative' },
+        { id: 'image-analysis' },
+        { id: 'image-processing' },
+        { id: 'ai' },
+        { id: 'quantitative' }
     ];
     
-    nodes.forEach((node, index) => {
+    nodes.forEach((node, index) {
         const element = document.querySelector(`.graph-node[data-id="${node.id}"]`);
         if (element) {
             const angle = (index / nodes.length) * 2 * Math.PI;
@@ -498,20 +488,27 @@ function applyCircularLayout() {
 // 显示节点详细信息
 function showNodeInfo(node) {
     const nodeInfo = {
-        'mri': '磁共振成像（Magnetic Resonance Imaging, MRI）是一种利用核磁共振原理的医学影像技术，能够生成人体内部结构的详细图像。',
-        'sequences': 'MRI成像序列是一系列射频脉冲和梯度磁场的组合，用于产生不同类型的组织对比度图像。',
-        't1': 'T1加权成像突出显示解剖结构，脂肪组织显示为亮信号，水显示为暗信号。',
-        't2': 'T2加权成像对水含量敏感，常用于检测水肿、炎症和某些病理变化。',
-        'dwi': '扩散加权成像通过测量水分子扩散运动来评估组织微观结构，对急性脑缺血特别敏感。',
-        'flair': 'FLAIR（Fluid Attenuated Inversion Recovery）序列抑制脑脊液信号，使邻近脑室的病变更加明显。',
-        'applications': 'MRI广泛应用于神经、心血管、肌肉骨骼、腹部和盆腔等部位的临床诊断。',
-        'neuro': '神经影像应用包括脑肿瘤、脑血管疾病、神经退行性疾病和发育异常等的诊断与评估。',
-        'cardio': '心脏MRI可评估心脏结构、功能、灌注和 viability，对心肌病、先天性心脏病等有重要诊断价值。',
-        'musculo': '肌肉骨骼MRI用于评估关节、肌肉、肌腱和韧带损伤，以及骨肿瘤和感染等疾病。',
-        'analysis': 'MRI数据分析包括图像重建、后处理、定量参数提取和人工智能辅助诊断等。',
-        'reconstruction': '图像重建是将原始k空间数据转换为可视图像的过程，常用方法包括傅里叶变换和压缩感知。',
-        'quantitative': '定量MRI分析提取组织的物理和生理参数，如T1、T2弛豫时间、扩散系数和灌注参数等。',
-        'segmentation': '图像分割是将图像划分为具有不同意义的区域，常用于器官、组织和病变的自动识别与定量分析。'
+        'medical-imaging': '医学影像学是利用各种成像技术对人体进行检查，从而对疾病进行诊断和治疗的一门临床学科。',
+        'imaging-tech': '成像技术是医学影像学的核心，包括X线、CT、MRI、超声、核医学等多种成像方法。',
+        'ct': 'CT（计算机断层扫描）利用X射线对人体进行断层扫描，通过计算机重建图像，能够清晰显示人体内部结构。',
+        'mri': 'MRI（磁共振成像）利用强磁场和射频脉冲使人体组织产生信号，通过计算机重建图像，对软组织分辨率高。',
+        'ultrasound': '超声成像利用超声波在人体组织中的反射和散射特性形成图像，无辐射、实时、便携。',
+        'xray': 'X线成像利用X射线穿透人体不同组织的能力差异形成图像，是历史最悠久、应用最广泛的影像技术。',
+        'nuclear': '核医学利用放射性核素标记的药物进行成像，能够显示器官功能和代谢状态。',
+        'anatomy-systems': '解剖系统分类帮助医生根据不同的人体系统进行针对性的影像学检查和诊断。',
+        'neuro': '神经影像学专注于脑、脊髓等神经系统疾病的影像诊断，如脑肿瘤、脑血管病、神经退行性疾病等。',
+        'chest': '胸部影像学专注于肺、心脏、纵隔等胸部疾病的影像诊断，如肺癌、肺炎、心脏病等。',
+        'abdomen': '腹部影像学专注于肝、胆、胰、脾、肾等腹部器官疾病的影像诊断。',
+        'msk': '骨骼肌肉影像学专注于骨、关节、肌肉等运动系统疾病的影像诊断，如骨折、关节炎、软组织肿瘤等。',
+        'disease-diagnosis': '疾病诊断是医学影像学的核心任务，通过对影像特征的分析判断疾病的性质和程度。',
+        'tumors': '肿瘤影像诊断关注良恶性肿瘤的鉴别、肿瘤分期、疗效评估等。',
+        'inflammation': '炎症影像诊断关注感染性和非感染性炎症的影像表现和鉴别诊断。',
+        'trauma': '创伤影像诊断关注骨折、脏器损伤、出血等急性创伤的快速诊断。',
+        'degenerative': '退行性病变影像诊断关注随着年龄增长出现的组织器官退行性改变的诊断。',
+        'image-analysis': '影像分析是利用计算机技术对医学图像进行处理和分析，辅助医生进行诊断。',
+        'image-processing': '图像处理技术包括图像增强、分割、配准等，能够改善图像质量并提取有用信息。',
+        'ai': '人工智能在医学影像中的应用包括病灶检测、图像分割、辅助诊断等，正在改变传统影像诊断模式。',
+        'quantitative': '定量分析通过测量影像中的各种参数，为疾病诊断和治疗评估提供客观依据。'
     };
     
     // 创建模态框显示详细信息
